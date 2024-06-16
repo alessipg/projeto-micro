@@ -1,26 +1,26 @@
-#define botao 2
+#define sensor 2
 #define led 3
 #define degree 90
 
 #include <ServoGG.h>
 
 ServoGG myservo(4);
-bool estadoBotao;
-bool estadoAnteriorBotao = LOW;
+bool estadoSensor;
+bool estadoAnteriorSensor = LOW;
 bool cancela = false;
 byte pos;
 
 void setup() {
   pinMode(led, OUTPUT);
-  pinMode(botao, INPUT);
+  pinMode(sensor, INPUT);
 }
 
 
 void loop() {
-  estadoBotao = digitalRead(botao);
+  estadoSensor = digitalRead(sensor);
 
   // Verifica se o botão foi pressionado (borda de subida)
-  if (estadoBotao != estadoAnteriorBotao && estadoBotao == HIGH) {
+  if (estadoSensor != estadoAnteriorSensor && estadoSensor == HIGH) {
     cancela = !cancela;
     digitalWrite(led, cancela);
     switchServo(cancela);
@@ -30,7 +30,7 @@ void loop() {
     switchServo(cancela);
   }
   
-  estadoAnteriorBotao = estadoBotao;
+  estadoAnteriorSensor = estadoSensor;
 }
 
 void switchServo(bool estado) {
